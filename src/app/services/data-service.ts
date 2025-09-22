@@ -5,7 +5,7 @@ import { Player } from '../interfaces/player';
 @Injectable({ providedIn: 'root' })
 export class DataService {
   private readonly playersResource = httpResource<{ players: Player[] }>(() => ({
-    url: '/players.json',
+    url: 'assets/players.json',
   }));
 
   sortedPlayers = computed(() => {
