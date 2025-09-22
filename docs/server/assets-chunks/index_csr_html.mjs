@@ -1,0 +1,16 @@
+export default `<!doctype html>
+<html lang="en" data-beasties-container="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Tippjatek</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="https://www.tippmix.hu/favicon.png">
+<style>*{font-family:Roboto,sans-serif;box-sizing:border-box}</style><link rel="stylesheet" href="styles-ATR3652Q.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-ATR3652Q.css"></noscript></head>
+
+<body ngcm="">
+  <app-root></app-root>
+<script src="main-5BHOJ6S5.js" type="module"></script></body>
+
+</html>`;
