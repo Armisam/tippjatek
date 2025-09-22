@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:gh": "ng build --configuration production --output-path=docs"
+    "build:gh": "ng build --configuration production --output-path=docs --base-href=/tippjatek/ --deploy-url=/tippjatek/"
   },
   "prettier": {
     "printWidth": 100,
