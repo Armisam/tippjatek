@@ -1,0 +1,34 @@
+<div class="container">
+    <button routerLink="/" class="back-btn">Vissza a főoldalra</button>
+
+    @if (player()) {
+    <h1>Statisztikák: {{ player()?.name }}</h1>
+
+    @for (roundPrediction of player()?.predictions; track roundPrediction.number) {
+    <h2>{{ roundPrediction.number }}. forduló</h2>
+    <table class="predictions-table">
+        <thead>
+            <tr>
+                <th>Párosítás</th>
+                <th>Tipp</th>
+                <th>Valós eredmény</th>
+                <th>Pont</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (tip of roundPrediction.tips; track tip.matchId) {
+            <tr>
+                <td>{{ tip.home }} - {{ tip.away }}</td>
+                <td>{{ tip.tip }}</td>
+                <td>{{ tip.actualScore || '-' }}</td>
+                <td>{{ calculatePoints(tip) }}</td>
+            </tr>}
+        </tbody>
+    </table>
+    }
+    } @else {
+    <p>Nem található játékos ezzel az ID-val.</p>
+    }
+
+    <button routerLink="/" class="back-btn">Vissza a főoldalra</button>
+</div>

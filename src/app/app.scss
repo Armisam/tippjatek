@@ -1,0 +1,14 @@
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    background: #f0f5e5;
+
+    .title {
+        color: #60c21f;
+        font-size: 60px;
+        align-self: center;
+    }
+}

@@ -1,0 +1,9 @@
+<div class="sorrend-container">
+    @for (player of players(); track player.id; let i = $index) {
+    <div class="card" [routerLink]="['/jatekos-statisztika', player.id]">
+        <div class="avatar">#{{ i + 1 }}</div>
+        <div class="points">{{ player.points }} pont</div>
+        <div class="name">{{ player.name }}</div>
+    </div>
+    }
+</div>
