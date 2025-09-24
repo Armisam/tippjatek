@@ -108,13 +108,13 @@ export class JatekosStatisztika {
 
   }
 
-  getPoints(tip: Prediction): number {
+  getPoints(tip: Prediction): number | string {
     const scores = this.dataService.scoresData();
     const actualScore = scores?.find(
       s => s.roundNumber === tip.roundNumber && s.matchNumber === tip.matchNumber
     )?.score;
 
-    return calculatePoints(tip.tip, actualScore || '');
+    return !actualScore ? '-' : calculatePoints(tip.tip, actualScore);
   }
 
   getPair(roundNumber: number, matchNumber: number): string {
