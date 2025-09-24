@@ -21,8 +21,6 @@
                 @for (tip of round.tips; track tip.matchNumber) {
                 <tr>
                     <td>{{ getPair(round.roundNumber, tip.matchNumber) }}</td>
-                    <td>{{ tip.tip || '-' }}</td>
-                    <td>{{ getScore(round.roundNumber, tip.matchNumber) }}</td>
                     <td>
                         @if(editingTip()?.roundNumber === round.roundNumber && editingTip()?.matchNumber ===
                         tip.matchNumber){
@@ -32,8 +30,12 @@
                         <input type="text" [value]="editingValueAway()"
                             (input)="sanitizeNumber($event, editingValueAway)" />
                         } @else {
-                        {{ getPoints(tip) }}
+                        {{ tip.tip || '-' }}
                         }
+                    </td>
+                    <td>{{ getScore(round.roundNumber, tip.matchNumber) }}</td>
+                    <td>
+                        {{ getPoints(tip) }}
                     </td>
                     @if (isLastRound(round.roundNumber) && canEdit(round.roundNumber, tip.matchNumber)) {
                     <td>
