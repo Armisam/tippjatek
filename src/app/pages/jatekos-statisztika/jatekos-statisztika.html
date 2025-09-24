@@ -1,30 +1,54 @@
 <div class="container">
     <button routerLink="/" class="back-btn">Vissza a főoldalra</button>
 
-    @if (player()) {
-    <h1>Statisztikák: {{ player()?.name }}</h1>
+    @if (playerPredictions() && playerName()) {
+    <h1>Statisztikák: {{ playerName() }}</h1>
 
-    @for (roundPrediction of player()?.predictions; track roundPrediction.number) {
-    <h2>{{ roundPrediction.number }}. forduló</h2>
-    <table class="predictions-table">
-        <thead>
-            <tr>
-                <th>Párosítás</th>
-                <th>Tipp</th>
-                <th>Valós eredmény</th>
-                <th>Pont</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (tip of roundPrediction.tips; track tip.matchId) {
-            <tr>
-                <td>{{ tip.home }} - {{ tip.away }}</td>
-                <td>{{ tip.tip }}</td>
-                <td>{{ tip.actualScore || '-' }}</td>
-                <td>{{ calculatePoints(tip) }}</td>
-            </tr>}
-        </tbody>
-    </table>
+    @for (round of playerPredictions(); track round.roundNumber) {
+    <h2>{{ round.roundNumber }}. forduló</h2>
+    <div class="predictions-table-wrapper">
+        <table class="predictions-table">
+            <thead>
+                <tr>
+                    <th>Párosítás</th>
+                    <th>Tipp</th>
+                    <th>Valós eredmény</th>
+                    <th>Pont</th>
+                    @if (isLastRound(round.roundNumber)) {<th></th>}
+                </tr>
+            </thead>
+            <tbody>
+                @for (tip of round.tips; track tip.matchNumber) {
+                <tr>
+                    <td>{{ getPair(round.roundNumber, tip.matchNumber) }}</td>
+                    <td>{{ tip.tip || '-' }}</td>
+                    <td>{{ getScore(round.roundNumber, tip.matchNumber) }}</td>
+                    <td>
+                        @if(editingTip()?.roundNumber === round.roundNumber && editingTip()?.matchNumber ===
+                        tip.matchNumber){
+                        <input type="text" [value]="editingValueHome()"
+                            (input)="sanitizeNumber($event, editingValueHome)" />
+                        -
+                        <input type="text" [value]="editingValueAway()"
+                            (input)="sanitizeNumber($event, editingValueAway)" />
+                        } @else {
+                        {{ getPoints(tip) }}
+                        }
+                    </td>
+                    @if (isLastRound(round.roundNumber) && canEdit(round.roundNumber, tip.matchNumber)) {
+                    <td>
+                        <button class="edit-btn"
+                            (click)="onClickSaveEditTip(round.roundNumber, tip.matchNumber, tip.tip)">
+                            {{ editingTip()?.roundNumber === round.roundNumber && editingTip()?.matchNumber ===
+                            tip.matchNumber ? 'Mentés' : 'Szerkesztés' }}
+                        </button>
+                    </td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
     }
     } @else {
     <p>Nem található játékos ezzel az ID-val.</p>
