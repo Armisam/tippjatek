@@ -14,7 +14,7 @@
                     <th>Tipp</th>
                     <th>Valós eredmény</th>
                     <th>Pont</th>
-                    @if (isLastRound(round.roundNumber)) {<th></th>}
+                    @if (canEdit(round.roundNumber, 1)) {<th></th>}
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
                     <td>
                         {{ getPoints(tip) }}
                     </td>
-                    @if (isLastRound(round.roundNumber) && canEdit(round.roundNumber, tip.matchNumber)) {
+                    @if (canEdit(round.roundNumber, tip.matchNumber)) {
                     <td>
                         <button class="edit-btn"
                             (click)="onClickSaveEditTip(round.roundNumber, tip.matchNumber, tip.tip)">
