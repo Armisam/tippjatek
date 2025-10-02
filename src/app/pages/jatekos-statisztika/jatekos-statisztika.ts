@@ -70,8 +70,13 @@ export class JatekosStatisztika {
           allScores = scoresWithinWeek;
         }
 
-        const allRounds = Array.from(new Set(allScores.map(s => s.roundNumber)));
-        const lastRound = Math.max(...allRounds);
+        const futureScoresSorted = allScores
+          .filter(s => s.startDate && s.startDate.toDate() > today)
+          .sort((a, b) => a.startDate!.toDate().getTime() - b.startDate!.toDate().getTime());
+
+        const lastRound = futureScoresSorted.length > 0
+          ? futureScoresSorted[0].roundNumber
+          : Math.max(...allScores.map(s => s.roundNumber));
 
         const lastRoundScores = allScores.filter(s => s.roundNumber === lastRound);
 
